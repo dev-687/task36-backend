@@ -1,7 +1,6 @@
 const express = require('express');
-const postController = require('../controllers/PostController');
-const userController = require('../controllers/UserController');
-
+const fileController = require('../controllers/FileController');
+const multer = require('multer');
 const router = express.Router();
 
 // Middleware to log method name and timestamp
@@ -10,22 +9,20 @@ router.use((req, res, next) => {
     next();
 });
 
+const storage=multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, '../uploads');
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + '-' + file.originalname);
+    }
+});
 
+const upload = multer({ storage });
+// File Uploading routes
+router.post('/uploads',upload.single("file"), fileController.storeFile);
+router.get('/uploads', fileController.getAllFiles);
+roter.delete('/uploads/:id', fileController.deleteFile);
 
-// Post routes
-router.get('/posts', postController.getAllPosts);
-router.get('/posts/:id', postController.getPostById);
-router.post('/posts', postController.createPost);
-router.put('/posts/:id', postController.updatePost);
-
-
-router.delete('/posts/:id', postController.deletePost);
-
-// User routes
-router.get('/users', userController.getAllUsers);
-// router.get('/users/:id', userController.getUserById);
-router.post('/users', userController.store);
-// router.put('/users/:id', userController.updateUser);
-// router.delete('/users/:id', userController.deleteUser);
 
 module.exports = router;
