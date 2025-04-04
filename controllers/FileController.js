@@ -1,4 +1,6 @@
 const File = require('../models/File'); 
+const fs = require('fs');
+const path = require('path');
 const FileController = {
    // Store File
     storeFile: async (req, res) => {
@@ -8,7 +10,7 @@ const FileController = {
         try {
             const file = new File({ 
                 filename:req.file.filename, 
-                filePath: `/uploads/${req.file.filename}` 
+                filePath: `${req.file.filename}` 
             }); 
             await file.save();
             res.status(201).json({ message: 'File uploaded successfully', file });
@@ -44,6 +46,12 @@ const FileController = {
             if (!file) {
                 return res.status(404).json({ message: 'File not found' });
             }
+            const filePath = path.join(__dirname, '..', 'uploads', file.filename); 
+
+            if (fs.existsSync(filePath)) {
+                fs.unlinkSync(filePath);
+            }
+
             res.status(200).json({ message: 'Image deleted successfully' });
         } catch (error) {
             res.status(500).json({ message: 'Error deleting image', error: error.message });
