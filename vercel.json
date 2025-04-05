@@ -11,17 +11,6 @@
       "src": "/(.*)",
       "dest": "server.js"
     }
-  ],
-  "headers": [
-    {
-      "source": "/api/(.*)",
-      "headers": [
-        { "key": "Access-Control-Allow-Origin", "value": "https://task36-frontend.vercel.app" },
-        { "key": "Access-Control-Allow-Methods", "value": "GET,POST,DELETE,OPTIONS" },
-        { "key": "Access-Control-Allow-Headers", "value": "Content-Type" },
-        { "key": "Access-Control-Allow-Credentials", "value": "true" }
-      ]
-    }
   ]
 }
 
