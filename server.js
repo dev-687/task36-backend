@@ -12,7 +12,7 @@ const app = express();
 
 // 🛡️ Manual CORS headers (important for Vercel)
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://task36-frontend.vercel.app");
+  res.header("Access-Control-Allow-Origin", "https://task36-frontend.vercel.app/");
   res.header("Access-Control-Allow-Methods", "GET,POST,DELETE,OPTIONS");
   res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
   res.header("Access-Control-Allow-Credentials", "true");
@@ -26,7 +26,7 @@ app.use((req, res, next) => {
 
 // Also keep cors() middleware for local/dev
 app.use(cors({
-  origin: "https://task36-frontend.vercel.app",
+  origin: "https://task36-frontend.vercel.app/",
   methods: ["GET", "POST", "DELETE"],
   credentials: true
 }));
