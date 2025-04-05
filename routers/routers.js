@@ -14,6 +14,7 @@ router.use((req, res, next) => {
 
 // File Uploading routes
 router.post('/uploads', upload.single('file'), FileController.storeFile);
+
 router.get('/uploads', FileController.getAllFiles);
 router.delete('/uploads/:id', FileController.deleteFile);
 

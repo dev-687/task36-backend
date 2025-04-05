@@ -22,16 +22,21 @@ app.use(cors({
 app.options('*', cors()); // Preflight support
 
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://task36-frontend.vercel.app");
-  res.header("Access-Control-Allow-Methods", "GET,POST,DELETE,OPTIONS");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  res.header("Access-Control-Allow-Credentials", "true");
+  res.setHeader("Access-Control-Allow-Origin", "https://task36-frontend.vercel.app");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(200);
+  }
   next();
 });
 // app.use(express.static('uploads')); for local file storage
 
 app.use('/api/v1', router);
-
+app.get("/cors-test", (req, res) => {
+  res.json({ message: "CORS is working!" });
+});
 // Connect to MongoDB before starting the server
 mongoDBConn().then(() => {
   console.log("MongoDB Connected Successfully");
