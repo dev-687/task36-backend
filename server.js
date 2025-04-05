@@ -33,6 +33,7 @@ app.use((req, res, next) => {
 });
 // app.use(express.static('uploads')); for local file storage
 
+
 app.use('/api/v1', router);
 app.get("/cors-test", (req, res) => {
   res.json({ message: "CORS is working!" });
