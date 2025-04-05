@@ -18,7 +18,14 @@ app.use(cors({
   methods: ["GET", "POST", "DELETE"],
   credentials: true
 }));
-
+app.options('*', cors()); 
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "https://task36-frontend.vercel.app");
+  res.header("Access-Control-Allow-Methods", "GET,POST,DELETE,OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Credentials", "true");
+  next();
+});
 // app.use(express.static('uploads')); for local file storage
 
 app.use('/api/v1', router);
