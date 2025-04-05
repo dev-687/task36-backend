@@ -15,10 +15,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(cors({
   origin: "https://task36-frontend.vercel.app",
-  methods: ["GET", "POST", "DELETE"],
+  methods: ["GET", "POST", "DELETE", "OPTIONS"],
   credentials: true
 }));
-app.options('*', cors()); 
+
+app.options('*', cors()); // Preflight support
+
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "https://task36-frontend.vercel.app");
   res.header("Access-Control-Allow-Methods", "GET,POST,DELETE,OPTIONS");
