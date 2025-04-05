@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: "https://task36-frontend.vercel.app",
   methods: ["GET", "POST", "DELETE"],
   credentials: true
 }));
